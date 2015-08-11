@@ -14,4 +14,19 @@ class Play < ActiveRecord::Base
     self.state = "finish"
     save
   end
+
+  def next_turn!
+    turn_count += 1
+    if turn_player? first_player
+      turn_player = last_player
+    else
+      turn_player = first_player
+    end
+
+    save!
+  end
+
+  def turn_player?(player)
+    turn_player == player
+  end
 end
