@@ -34,18 +34,17 @@ class Piece < ActiveRecord::Base
     piece.owner = user_id
     piece.save!
 
-    self.game_end!(play_id) if params[:get_id].in? ['39', '40']
+    Play.find(play_id).game_end! if piece_id.in? ['39', '40']
   end
 
-  def self.game_end!(play_id:)
-    play = Play.find(play_id)
-    @play.winner = @play.turn_player
-    @play.state = "finish"
-    # 7. ルーム内全員を退出処理
-    @users = PlayingUser.where( :play_id => params[:play_id] ).all
-    @users.each do |user|
-      user.exit_flag = true
-      user.save!
+  def self.initialize_pieces(play_id:, first_player_id:, last_player_id:)
+    (1..40).to_a.each do |id|
+      master = MasterPiece.find(id)
+      owner_id = master.owner == 1 ? first_player_id : last_player_id
+      self.create(
+        # data[:owner]が1なら先手、2なら後手の駒。
+        :piece_id => master.id, :play_id => play_id, :posx => master.posx, :posy => master.posy, :promote => false, :owner => owner_id
+      )
     end
   end
 end
