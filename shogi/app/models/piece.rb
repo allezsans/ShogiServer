@@ -21,7 +21,7 @@ class Piece < ActiveRecord::Base
     piece.posx = posx
     piece.posy = posy
     # 3. 昇格したかどうかを値によって変更
-    piece.promote = (promote == 'True') ? true : false
+    piece.promote = (promote.downcase == 'true') ? true : false
     piece.save!
   end
 
