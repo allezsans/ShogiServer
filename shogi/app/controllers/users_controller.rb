@@ -18,8 +18,21 @@ class UsersController < ApplicationController
   end
 
   def logout
-    PlayingUser.logout(user_id: params[:user_id], play_id: params[:play_id])
-    render :json => ['true']
+    begin
+      PlayingUser.logout(user_id: params[:user_id], play_id: params[:play_id])
+      play = Play.find(params[:play_id])
+
+      play.state = "exit"
+
+      if play.save
+        render :json => ['true']
+      else
+        render :json => ['false']
+      end
+    rescue
+      @error = 'record not found'
+      render "users/error", :formats => [:json], :handlers => [:jbuilder] and return
+    end
   end
 
   private
