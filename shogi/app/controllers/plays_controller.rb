@@ -30,13 +30,16 @@ class PlaysController < ApplicationController
     @play = Play.find(params[:play_id])
     Piece.move_piece!(play_id: @play.id, piece_id: params[:move_id], posx: params[:posx], posy: params[:posy], promote: params[:promote])
 
-    unless params[:get_id].in? ['-1', '']
+    unless params[:get_id].in? ['-1', '', nil]
       Piece.got_piece!(play_id: @play.id, piece_id: params[:get_id], user_id: params[:user_id])
     end
 
     @play.next_turn!
-    @pieces = Piece.where(play: @play).all
-    render "pieces", :formats => [:json], :hanlders => [:jbuilder]
+    @update = true
+    render "update", :formats => [:json], :hanlders => [:jbuilder]
+  rescue
+    @update = false
+    render "update", :formats => [:json], :hanlders => [:jbuilder]
   end
 
   # debug用
