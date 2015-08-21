@@ -82,7 +82,7 @@ class Play < ActiveRecord::Base
   end
 
   def has_player?(user_id)
-    [first_player, last_player].include? user_id.to_i
+    [first_player, last_player].include? user_id
   end
 
   def waiting?

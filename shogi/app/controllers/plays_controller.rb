@@ -27,12 +27,19 @@ class PlaysController < ApplicationController
 
   # 駒情報の更新
   def update
-    Piece.update!(update_piece_params)
+    @play = Play.find(params[:play_id])
+    Piece.move_piece!(play_id: @play.id, piece_id: params[:move_id], posx: params[:posx], posy: params[:posy], promote: params[:promote])
+
+    unless params[:get_id].in? ['-1', '', nil]
+      Piece.got_piece!(play_id: @play.id, piece_id: params[:get_id], user_id: params[:user_id])
+    end
+
+    @play.next_turn!
     @update = true
     render "update", :formats => [:json], :hanlders => [:jbuilder]
-  # rescue
-  #   @update = false
-  #   render "update", :formats => [:json], :hanlders => [:jbuilder]
+  rescue
+    @update = false
+    render "update", :formats => [:json], :hanlders => [:jbuilder]
   end
 
   # debug用
@@ -56,17 +63,5 @@ class PlaysController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def play_params
     params.require(:play).permit(:turn_player, :turn_number, :end_flag, :room_no)
-  end
-
-  def update_piece_params
-    {
-      play_id: params[:play_id],
-      move_id: params[:move_id],
-      get_id: params[:get_id],
-      posx: params[:posx],
-      posy: params[:posy],
-      promote: params[:promote],
-      user_id: params[:user_id]
-    }
   end
 end
