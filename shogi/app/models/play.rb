@@ -90,9 +90,9 @@ class Play < ActiveRecord::Base
   end
 
   def to_exit(user_id)
-    state = 'exit'
-    winner = first_player == user_id ? last_player : first_player
-    save
-    id
+    self.state = 'exit'
+    self.winner = first_player == user_id ? last_player : first_player
+    self.save
+    self.id
   end
 end
