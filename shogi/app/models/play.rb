@@ -91,7 +91,7 @@ class Play < ActiveRecord::Base
 
   def to_exit(user_id)
     self.state = 'exit'
-    self.winner = first_player == user_id ? last_player : first_player
+    self.winner = self.first_player == user_id.to_i ? self.last_player : self.first_player
     self.save
     self.id
   end

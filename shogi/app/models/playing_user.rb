@@ -11,7 +11,7 @@ class PlayingUser < ActiveRecord::Base
     user.save
 
     if user.role == 'player'
-      Play.find(play_id).to_exit(user_id: user_id)
+      Play.find(play_id).to_exit(user_id)
       self.exit_users(user_id: user_id, play_id: play_id)
     end
   end
