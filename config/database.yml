@@ -25,5 +25,5 @@ test:
   database: shogi_test
 
 production:
-  adapter: pg
+  adapter: postgresql
   database: shogi_production
