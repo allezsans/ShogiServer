@@ -157,7 +157,7 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
-  rails (= 4.1.4)
+  rails
   rails_12factor
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
