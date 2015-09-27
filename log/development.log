@@ -250,3 +250,13 @@ Started GET "/" for 127.0.0.1 at 2015-09-27 18:40:54 +0900
 Processing by Rails::WelcomeController#index as HTML
   Rendered /Library/Ruby/Gems/2.0.0/gems/railties-4.1.4/lib/rails/templates/rails/welcome/index.html.erb (1.2ms)
 Completed 200 OK in 21ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/plays/1/state" for 127.0.0.1 at 2015-09-28 00:27:21 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by PlaysController#state as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPlay Load (1.1ms)[0m  SELECT  `plays`.* FROM `plays`  WHERE `plays`.`id` = ? LIMIT 1  [["id", 1]]
+  Rendered users/error.json.jbuilder (2.8ms)
+Filter chain halted as :set_play rendered or redirected
+Completed 200 OK in 50ms (Views: 11.8ms | ActiveRecord: 20.2ms)
