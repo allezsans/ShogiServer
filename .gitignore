@@ -1,0 +1,6 @@
+shogi/vendor/bundle
+.vagrant
+public/uploads
+tmp
+logs
+.DS_Store
