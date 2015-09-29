@@ -64,6 +64,7 @@ GEM
     minitest (5.8.1)
     multi_json (1.11.2)
     mysql (2.9.1)
+    newrelic_rpm (3.13.2.302)
     pg (0.18.3)
     polyglot (0.3.5)
     pry (0.10.2)
@@ -154,6 +155,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql
+  newrelic_rpm
   pg
   pry-byebug
   pry-rails
