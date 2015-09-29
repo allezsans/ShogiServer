@@ -1,4 +1,4 @@
-shogi/vendor/bundle
+vendor/bundle
 .vagrant
 public/uploads
 tmp
